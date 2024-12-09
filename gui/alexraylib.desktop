@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Alex Raylib
+Comment=A simple GTK program that shows a "Hello, World!" window
+Exec=alexraylib
+Icon=${SNAP}/meta/gui/alexraylib.png
+Type=Application
+Terminal=false
+Categories=Utility;
