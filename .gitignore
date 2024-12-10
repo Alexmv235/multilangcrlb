@@ -1,3 +1,7 @@
+# Created by https://www.toptal.com/developers/gitignore/api/snapcraft,snap,cmake,c,conan,linux
+# Edit at https://www.toptal.com/developers/gitignore?templates=snapcraft,snap,cmake,c,conan,linux
+
+### C ###
 # Prerequisites
 *.d
 
@@ -50,3 +54,86 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### CMake Patch ###
+# External projects
+*-prefix/
+
+### Conan ###
+# Conan build information
+conan.lock
+conanbuildinfo.*
+conaninfo.txt
+graph_info.json
+
+## Various built-in generators
+# cmake_find_package generator https://docs.conan.io/en/latest/reference/generators/cmake_find_package.html
+Find*.cmake
+
+# cmake_paths generator https://docs.conan.io/en/1.4/integrations/cmake/cmake_paths_generator.html
+conan_paths.*
+
+# Environment activation scripts produced by https://docs.conan.io/en/latest/mastering/virtualenv.html#virtualenv-generator
+activate_run.ps1
+activate_run.sh
+deactivate_run.ps1
+deactivate_run.sh
+environment_run.ps1.env
+environment_run.sh.env
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### Snap ###
+# gitginore template for creating Snap packages
+# website: https://snapcraft.io/
+
+parts/
+prime/
+stage/
+*.snap
+
+# Snapcraft global state tracking data(automatically generated)
+# https://forum.snapcraft.io/t/location-to-save-global-state/768
+/snap/.snapcraft/
+
+# Source archive packed by `snapcraft cleanbuild` before pushing to the LXD container
+/*_source.tar.bz2
+
+### Snapcraft ###
+/parts/
+/stage/
+/prime/
+/*.snap
+
+# Snapcraft global state tracking data(automatically generated)
+# https://forum.snapcraft.io/t/location-to-save-global-state/768
+
+# Source archive packed by `snapcraft cleanbuild` before pushing to the LXD container
+
+# End of https://www.toptal.com/developers/gitignore/api/snapcraft,snap,cmake,c,conan,linux
