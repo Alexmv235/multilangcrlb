@@ -1,15 +1,15 @@
-name: rayintalex
-base: core24 # Cambiado a core22 porque core24 aún no está ampliamente soportado
+name: multilangcrlb
+base: core24
 version: '1.0.0'
 summary: Raylib-based multilingual demo
 description: |
   A simple application using Raylib and cJSON to demonstrate multilingual support.
 
 grade: stable
-confinement: strict # Cambiar a 'strict' una vez configurados los plugs necesarios
+confinement: strict
 
 parts:
-  rayintalex:
+  multilangcrlb:
     plugin: cmake
     source: .
     build-packages:
@@ -77,10 +77,9 @@ parts:
       # Configurar CMake con las dependencias de Conan
       cmake -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake \
-            -S /root/parts/rayintalex/src/ \
+            -S /root/parts/multilangcrlb/src/ \
             -G "Unix Makefiles"
       snapcraftctl build
-    # Copia la carpeta i18n al directorio correcto en el snap
 
     stage-packages:
       # Bibliotecas requeridas para ejecución
@@ -94,13 +93,12 @@ parts:
       snap/gui/alexraylib.desktop: meta/gui/alexraylib.desktop
       snap/gui/alexraylib.png: meta/gui/alexraylib.png
 
-
 layout:
   /usr/local/bin/i18n:
     bind: $SNAP/usr/local/bin/i18n
 
 apps:
-  rayintalex:
+  multilangcrlb:
     command: usr/local/bin/rayintalex
     plugs:
       - desktop
@@ -113,4 +111,5 @@ apps:
       LD_LIBRARY_PATH: "$SNAP/usr/lib:$LD_LIBRARY_PATH"
       MESA_LOADER_DRIVER_OVERRIDE: iris
       LIBGL_DEBUG: verbose
+
 
