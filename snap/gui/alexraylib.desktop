@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Raylib Multilang
 Comment=Raylib-based multilingual demo
-Exec=rayintalex
+Exec=multilangcrlb
 Icon=${SNAP}/meta/gui/alexraylib.png
 Type=Application
 Terminal=false
