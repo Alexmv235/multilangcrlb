@@ -1,0 +1,116 @@
+name: rayintalex
+base: core24 # Cambiado a core22 porque core24 aún no está ampliamente soportado
+version: '1.0.0'
+summary: Raylib-based multilingual demo
+description: |
+  A simple application using Raylib and cJSON to demonstrate multilingual support.
+
+grade: stable
+confinement: strict # Cambiar a 'strict' una vez configurados los plugs necesarios
+
+parts:
+  rayintalex:
+    plugin: cmake
+    source: .
+    build-packages:
+      # Bibliotecas necesarias
+      - build-essential
+      - cmake
+      - make
+      - gcc
+      - ninja-build
+      - python3
+      - python3-venv
+      - pkg-config
+      - libxcomposite-dev
+      - libxcursor-dev
+      - libxdamage-dev
+      - libxfixes-dev
+      - libxi-dev
+      - libxinerama-dev
+      - libxkbfile-dev
+      - libxmuu-dev
+      - libxrandr-dev
+      - libxrender-dev
+      - libxres-dev
+      - libxss-dev
+      - libxtst-dev
+      - libxv-dev
+      - libxxf86vm-dev
+      - libxcb-glx0-dev
+      - libxcb-render0-dev
+      - libxcb-render-util0-dev
+      - libxcb-xkb-dev
+      - libxcb-icccm4-dev
+      - libxcb-image0-dev
+      - libxcb-keysyms1-dev
+      - libxcb-randr0-dev
+      - libxcb-shape0-dev
+      - libxcb-sync-dev
+      - libxcb-xfixes0-dev
+      - libxcb-xinerama0-dev
+      - libxcb-dri3-dev
+      - uuid-dev
+      - libxcb-cursor-dev
+      - libxcb-dri2-0-dev
+      - libxcb-present-dev
+      - libxcb-composite0-dev
+      - libxcb-ewmh-dev
+      - libxcb-res0-dev
+      - libxcb-util-dev
+      - libx11-dev
+      - libx11-xcb-dev
+      - libfontenc-dev
+      - libice-dev
+      - libsm-dev
+      - libxau-dev
+      - libxaw7-dev
+      - libgl-dev
+    override-build: |
+      # Crear un entorno virtual para Conan
+      python3 -m venv venv
+      source venv/bin/activate
+      
+      # Instalar Conan en el entorno virtual
+      pip install conan
+      
+      # Configurar CMake con las dependencias de Conan
+      cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake \
+            -S /root/parts/rayintalex/src/ \
+            -G "Unix Makefiles"
+      snapcraftctl build
+    # Copia la carpeta i18n al directorio correcto en el snap
+
+    stage-packages:
+      # Bibliotecas requeridas para ejecución
+      - libgl1
+      - libx11-6
+      - libxcb1
+      - libxcb-render0
+      - libxcb-shape0
+      - libxcb-xfixes0
+    organize:
+      snap/gui/alexraylib.desktop: meta/gui/alexraylib.desktop
+      snap/gui/alexraylib.png: meta/gui/alexraylib.png
+
+
+layout:
+  /usr/local/bin/i18n:
+    bind: $SNAP/usr/local/bin/i18n
+
+apps:
+  rayintalex:
+    command: usr/local/bin/rayintalex
+    plugs:
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+      - home
+    environment:
+      LIBGL_DRIVERS_PATH: $SNAP/usr/lib/x86_64-linux-gnu/dri
+      LD_LIBRARY_PATH: "$SNAP/usr/lib:$LD_LIBRARY_PATH"
+      MESA_LOADER_DRIVER_OVERRIDE: iris
+      LIBGL_DEBUG: verbose
+
